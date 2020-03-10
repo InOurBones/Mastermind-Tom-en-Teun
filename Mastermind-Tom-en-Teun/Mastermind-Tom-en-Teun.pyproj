@@ -43,12 +43,14 @@
     <Content Include="Mastermind_Tom_en_Teun\static\content\bootstrap.css" />
     <Content Include="Mastermind_Tom_en_Teun\static\content\bootstrap.min.css" />
     <Content Include="Mastermind_Tom_en_Teun\static\content\site.css" />
+    <Content Include="Mastermind_Tom_en_Teun\static\content\style.css" />
     <Content Include="Mastermind_Tom_en_Teun\static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Mastermind_Tom_en_Teun\static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Mastermind_Tom_en_Teun\static\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Mastermind_Tom_en_Teun\static\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\bootstrap.js" />
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\bootstrap.min.js" />
+    <Content Include="Mastermind_Tom_en_Teun\static\scripts\DragAndDrop.js" />
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\jquery-1.10.2.js" />
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\jquery-1.10.2.min.js" />
@@ -62,8 +64,8 @@
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\respond.js" />
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\respond.min.js" />
     <Content Include="Mastermind_Tom_en_Teun\static\scripts\_references.js" />
-    <Content Include="Mastermind_Tom_en_Teun\templates\about.html" />
-    <Content Include="Mastermind_Tom_en_Teun\templates\contact.html" />
+    <Content Include="Mastermind_Tom_en_Teun\templates\stats.html" />
+    <Content Include="Mastermind_Tom_en_Teun\templates\settings.html" />
     <Content Include="Mastermind_Tom_en_Teun\templates\index.html" />
     <Content Include="Mastermind_Tom_en_Teun\templates\layout.html" />
   </ItemGroup>

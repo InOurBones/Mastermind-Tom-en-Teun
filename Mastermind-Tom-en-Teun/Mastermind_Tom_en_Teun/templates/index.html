@@ -1,33 +1,28 @@
 {% extends "layout.html" %}
 
+{% block scripts %}
+    <script src="/static/scripts/DragAndDrop.js"></script>
+{% endblock %}
+
 {% block content %}
 
-<div class="jumbotron">
-    <h1>Flask</h1>
-    <p class="lead">Flask is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
+<section id="play-grid">
+    {% for _ in range(10) %}
+    <div class="row">
+        {% for __ in range(10) %}
+        <div class="cell">x</div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</section>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Flask gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://flask.pocoo.org/docs/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
-    </div>
+<div id="colours" class="draggable">
+    <div draggable="true" id="red"><i class="gg-twilio"></i></div>
+    <div draggable="true" id="blue"><i class="gg-twilio"></i></div>
+    <div draggable="true" id="green"><i class="gg-twilio"></i></div>
+    <div draggable="true" id="yellow"><i class="gg-twilio"></i></div>
+    <div draggable="true" id="orange"><i class="gg-twilio"></i></div>
+    <div draggable="true" id="brown"><i class="gg-twilio"></i></div>
 </div>
 
 {% endblock %}

@@ -1,0 +1,85 @@
+body {
+}
+
+#play-grid {
+    margin: 20px 0;
+}
+
+.row {
+    width: 50%;
+    overflow: hidden;
+    margin: auto;
+}
+
+.cell {
+    width: 10%;
+    float: left;
+}
+
+#colours {
+    overflow: hidden;
+    margin: auto;
+    width: 30%;
+}
+
+    #colours div {
+        display: inline-block;
+        width: 15%;
+    }
+
+.gg-twilio {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    transform: scale(var(--ggs,1));
+    width: 24px;
+    height: 24px;
+    border-radius: 22px;
+    box-shadow: inset 0 0 0 3px
+}
+
+    .gg-twilio::after,
+    .gg-twilio::before {
+        content: "";
+        display: block;
+        position: absolute;
+        box-sizing: border-box;
+        background: currentColor;
+        border-radius: 6px;
+        width: 4px;
+        height: 4px;
+        top: 7px;
+        box-shadow: 0 6px 0
+    }
+
+    .gg-twilio::before {
+        left: 7px
+    }
+
+    .gg-twilio::after {
+        right: 7px
+    }
+
+#red .gg-twilio {
+    background: red;
+}
+
+#blue .gg-twilio {
+    background: blue;
+}
+
+#green .gg-twilio {
+    background: green;
+}
+
+#yellow .gg-twilio {
+    background: yellow;
+}
+
+#orange .gg-twilio {
+    background: orange;
+}
+
+#brown .gg-twilio {
+    background: brown;
+}
