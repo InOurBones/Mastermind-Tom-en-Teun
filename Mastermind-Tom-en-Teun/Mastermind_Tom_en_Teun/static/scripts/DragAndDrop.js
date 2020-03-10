@@ -22,7 +22,6 @@ dropzones.addEventListener('dragenter', e => {
 
 dropzones.addEventListener('drop', e => {
     e.preventDefault();
-    e.target.innerHTML = '';
     e.target.classList.remove('solid-border');
     if (e.target.classList.contains('gg-twilio')) {
         e.target.parentNode.parentNode.appendChild(el);

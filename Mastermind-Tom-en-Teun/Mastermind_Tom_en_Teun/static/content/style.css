@@ -2,18 +2,23 @@ body {
 }
 
 #play-grid {
-    margin: 20px 0;
+    margin: 20px auto;
+    width: 36%;
 }
 
 .row {
-    width: 50%;
+    padding-top: 10px;
     overflow: hidden;
     margin: auto;
 }
 
 .cell {
-    width: 10%;
+    width: 40px;
+    height: 40px;
     float: left;
+    border-width: 5px 2px;
+    border-color: grey;
+    border-style: solid;
 }
 
 #colours {
