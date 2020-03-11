@@ -1,4 +1,4 @@
-const dropzones = document.querySelector('.row');
+const dropzones = document.querySelector('#active-row');
 
 let el = null;
 

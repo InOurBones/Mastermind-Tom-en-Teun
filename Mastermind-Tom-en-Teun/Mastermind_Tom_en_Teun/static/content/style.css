@@ -12,6 +12,10 @@ body {
     margin: auto;
 }
 
+#active-row .cell {
+    background-color: lightblue;
+}
+
 .cell {
     width: 40px;
     height: 40px;
@@ -32,6 +36,7 @@ body {
         width: 15%;
     }
 
+/* CSS.GG - twilio */
 .gg-twilio {
     display: block;
     position: relative;
@@ -88,3 +93,73 @@ body {
 #brown .gg-twilio {
     background: brown;
 }
+
+/* CSS.GG - ArrowRight */
+.gg-arrow-right {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 22px;
+    height: 22px
+}
+
+    .gg-arrow-right::after,
+    .gg-arrow-right::before {
+        content: "";
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        right: 3px
+    }
+
+    .gg-arrow-right::after {
+        width: 8px;
+        height: 8px;
+        border-top: 2px solid;
+        border-right: 2px solid;
+        transform: rotate(45deg);
+        bottom: 7px
+    }
+
+    .gg-arrow-right::before {
+        width: 16px;
+        height: 2px;
+        bottom: 10px;
+        background: black;
+    }
+
+/* CSS.GG - ArrowLeft */
+.gg-arrow-left {
+    box-sizing: border-box;
+    position: relative;
+    display: block;
+    transform: scale(var(--ggs,1));
+    width: 22px;
+    height: 22px
+}
+
+    .gg-arrow-left::after,
+    .gg-arrow-left::before {
+        content: "";
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        left: 3px
+    }
+
+    .gg-arrow-left::after {
+        width: 8px;
+        height: 8px;
+        border-bottom: 2px solid;
+        border-left: 2px solid;
+        transform: rotate(45deg);
+        bottom: 7px
+    }
+
+    .gg-arrow-left::before {
+        width: 16px;
+        height: 2px;
+        bottom: 10px;
+        background: black;
+    }

@@ -29,7 +29,6 @@
   <ItemGroup>
     <Compile Include="runserver.py" />
     <Compile Include="Mastermind_Tom_en_Teun\__init__.py" />
-    <Compile Include="Mastermind_Tom_en_Teun\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mastermind_Tom_en_Teun\" />

@@ -6,13 +6,18 @@
 
 {% block content %}
 
+<p>{{ currentround }}</p>
 <section id="play-grid">
-    {% for _ in range(10) %}
-    <div class="row">
-        {% for __ in range(10) %}
-        <div class="cell"></div>
-        {% endfor %}
-    </div>
+    {% for i in range(10) %}
+        {% if i == currentround %}
+            <div class="row" id="active-row">
+        {% else %}
+            <div class="row">
+        {% endif %}
+            {% for _ in range(10) %}
+                <div class="cell"></div>
+            {% endfor %}
+        </div>
     {% endfor %}
 </section>
 
