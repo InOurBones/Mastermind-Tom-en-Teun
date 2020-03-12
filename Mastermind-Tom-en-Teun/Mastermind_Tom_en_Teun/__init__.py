@@ -11,13 +11,15 @@ app.secret_key = b'\xd4\xc6\x14\xd4\xe3\xce\x04\xe5\x15\xa5\xf7Z$\x8e \x1a'
 @app.route('/')
 @app.route('/home')
 def home():
-    if 'options' not in session:
+    if 'cr' not in session:
         opt = Options()
-        session['options'] = json.dumps(opt,default=convert_to_dict)
+        #session['options'] = json.dumps(opt,default=convert_to_dict)
+        session['cr'] = opt.currentround
     return render_template(
         'index.html',
         year=datetime.now().year,
-        currentround = session['options'],
+        #currentround = session['options']['currentround'],
+        currentround = session['cr'],
     )
 
 @app.route('/settings')
@@ -45,4 +47,4 @@ def convert_to_dict(obj):
 class Options:
 
     def __init__(self):
-        self._currentround = 1
+        self.currentround = 2
