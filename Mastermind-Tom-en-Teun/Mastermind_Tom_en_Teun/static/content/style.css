@@ -3,7 +3,12 @@ body {
 
 #play-grid {
     margin: 20px auto;
-    width: 36%;
+    width: 11%;
+}
+
+#error {
+    text-align: center;
+    color: red;
 }
 
 .row {
@@ -17,8 +22,8 @@ body {
 }
 
 .cell {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 35px;
     float: left;
     border-width: 5px 2px;
     border-color: grey;
@@ -28,15 +33,17 @@ body {
 #colours {
     overflow: hidden;
     margin: auto;
-    width: 30%;
+    width: 10%;
 }
 
-    #colours div {
+    #colours div div {
         display: inline-block;
-        width: 15%;
+        width: 10%;
+        margin: 0 5px;
+        padding: 0 8px;
     }
 
-/* CSS.GG - twilio */
+/* CSS.GG - twilio */ 
 .gg-twilio {
     display: block;
     position: relative;
@@ -70,28 +77,48 @@ body {
         right: 7px
     }
 
-#red .gg-twilio {
-    background: red;
+#black .gg-twilio {
+    background: black;
+}
+
+#pink .gg-twilio {
+    background: pink;
 }
 
 #blue .gg-twilio {
     background: blue;
 }
 
-#green .gg-twilio {
-    background: green;
+#grey .gg-twilio {
+    background: grey;
+}
+
+#brown .gg-twilio {
+    background: brown;
+}
+
+#red .gg-twilio {
+    background: red;
 }
 
 #yellow .gg-twilio {
     background: yellow;
 }
 
+#purple .gg-twilio {
+    background: purple;
+}
+
+#green .gg-twilio {
+    background: green;
+}
+
 #orange .gg-twilio {
     background: orange;
 }
 
-#brown .gg-twilio {
-    background: brown;
+.twilio-row {
+    display: inline-block;
 }
 
 /* CSS.GG - ArrowRight */

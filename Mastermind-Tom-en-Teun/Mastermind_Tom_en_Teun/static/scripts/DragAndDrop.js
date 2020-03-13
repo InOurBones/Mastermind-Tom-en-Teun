@@ -21,15 +21,25 @@ dropzones.addEventListener('dragenter', e => {
 });
 
 dropzones.addEventListener('drop', e => {
+    let colour = null;
+    let cell = null;
     e.preventDefault();
     e.target.classList.remove('solid-border');
     if (e.target.classList.contains('gg-twilio')) {
+        cell = e.target.parentElement.parentElement.classList[1];
         e.target.parentNode.parentNode.appendChild(el);
         e.target.parentNode.parentNode.firstChild.remove();
     }
     else {
         e.target.appendChild(el);
+        cell = e.target.classList[1];
     }
+    colour = el.id;
+    $.ajax({
+        url: "/handleplacement?" + "colour=" + colour + "&cell=" + cell , success: function (result) {
+            //placeholder
+        }
+    });
     el = null;
 });
 

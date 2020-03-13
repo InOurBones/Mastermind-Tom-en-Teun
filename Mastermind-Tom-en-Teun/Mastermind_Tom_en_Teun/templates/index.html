@@ -1,33 +1,47 @@
 {% extends "layout.html" %}
 
 {% block scripts %}
-<script src="/static/scripts/DragAndDrop.js"></script>
+<script src="/static/scripts/DragAndDrop.js" defer></script>
 {% endblock %}
 
 {% block content %}
-
-<p>{{ currentround }}</p>
+<div id="error">
+    <p>{{ error }}</p>
+</div>
 <section id="play-grid">
-    {% for i in range(10) %}
-        {% if i == currentround %}
-            <div class="row" id="active-row">
-        {% else %}
-            <div class="row">
-        {% endif %}
-            {% for _ in range(10) %}
-                <div class="cell"></div>
-            {% endfor %}
+    {% for i in range(my_pf._field|length) %}
+    <div class="row {{ i }}" id="{{ "active-row" if i == my_opt.currentround }}">
+        {% for a in range(4) %}
+        <div class="cell {{ a }}">
+            {% if my_pf._field[i][a] != 0 %}
+            <div id="{{ my_pf._field[i][a] }}">
+                <i class="gg-twilio"></i>
+            </div>
+            {% endif %}
         </div>
+        {% endfor %}
+    </div>
     {% endfor %}
 </section>
 
 <div id="colours" class="draggable">
-    <div draggable="true" id="red"><i class="gg-twilio"></i></div>
-    <div draggable="true" id="blue"><i class="gg-twilio"></i></div>
-    <div draggable="true" id="green"><i class="gg-twilio"></i></div>
-    <div draggable="true" id="yellow"><i class="gg-twilio"></i></div>
-    <div draggable="true" id="orange"><i class="gg-twilio"></i></div>
-    <div draggable="true" id="brown"><i class="gg-twilio"></i></div>
+    <div class="twilio-row">
+        {% for i in range(my_pf.colours|length) %}
+        {% if i != 0 and i % 3 == 0 %}
+    </div><div class="twilio-row">
+        {% endif %}
+        <div draggable="true" id="{{ my_pf.colours[i] }}"><i class="gg-twilio"></i></div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="form-container">
+    <form method="post" action="/nextround/">
+        <input type="submit" value="Next round" />
+    </form>
+    <form method="post" action="/reset/">
+        <input type="submit" value="reset" />
+    </form>
 </div>
 
 {% endblock %}
