@@ -6,12 +6,15 @@
 
 {% block content %}
 <div id="error">
+    <p>{{ my_pf.secretcode }}</p>
     <p>{{ error }}</p>
+    <p>{{ my_pf._response }}</p>
+    <p>{{ my_pf._field[-1] }}</p>
 </div>
 <section id="play-grid">
     {% for i in range(my_pf._field|length) %}
-    <div class="row {{ i }}" id="{{ "active-row" if i == my_opt.currentround }}">
-        {% for a in range(4) %}
+    <div class="row {{ i }}" id="{{ "active-row" if loop.last }}">
+        {% for a in range(my_pf._field[i]|length) %}
         <div class="cell {{ a }}">
             {% if my_pf._field[i][a] != 0 %}
             <div id="{{ my_pf._field[i][a] }}">

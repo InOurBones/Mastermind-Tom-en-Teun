@@ -25,18 +25,32 @@ dropzones.addEventListener('drop', e => {
     let cell = null;
     e.preventDefault();
     e.target.classList.remove('solid-border');
+    if (e.target.id == 'active-row') {
+        return;
+    }
     if (e.target.classList.contains('gg-twilio')) {
+        console.log('IF');
         cell = e.target.parentElement.parentElement.classList[1];
         e.target.parentNode.parentNode.appendChild(el);
-        e.target.parentNode.parentNode.firstChild.remove();
+        e.target.parentElement.remove();
+    }
+    else if (e.target.classList.length == 0) {
+
+        cell = e.target.parentElement.classList[1];
+        e.target.parentNode.appendChild(el);
+        e.target.remove();
     }
     else {
-        e.target.appendChild(el);
+        console.log('else');
+        console.log(el);
+        console.log(e.target);
+
         cell = e.target.classList[1];
+        e.target.appendChild(el);
     }
     colour = el.id;
     $.ajax({
-        url: "/handleplacement?" + "colour=" + colour + "&cell=" + cell , success: function (result) {
+        url: "/handleplacement?" + "colour=" + colour + "&cell=" + cell, success: function (result) {
             //placeholder
         }
     });
