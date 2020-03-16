@@ -2,17 +2,14 @@
     --ggs: 1;
 }
 
-body {
-
-}
-
 #field {
     overflow: hidden;
     margin: auto;
 }
 
-.tab-in {
-    margin-left: 172px;
+#custom-container {
+    width: 40%;
+    margin: auto;
 }
 
 #form-container {

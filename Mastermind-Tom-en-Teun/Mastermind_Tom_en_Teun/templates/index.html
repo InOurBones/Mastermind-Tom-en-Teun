@@ -6,6 +6,7 @@
 
 {% block content %}
 <div id="error">
+    <p>{{ my_pf.secretcode }}</p>
     <p>{{ error }}</p>
 </div>
 
@@ -21,11 +22,17 @@
             <dt>Allow duplicate colours</dt>
             <dd>{{ "No" if my_opt.unique else "Yes" }}</dd>
         </dl>
+
+        <ul>
+            <li><a href="/nextround/">Next round</a></li>
+            <li><a href="/reset/">reset</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
     </div>
 
-    <div class="col-md-{{ (my_opt.num_column + 1) // 2 }} tab-in">
+    <div class="col-md-{{ (my_opt.num_column + 1) // 2 }} col-md-offset-2">
         {% for i in range(my_pf._field|length) %}
-        <div class="row {{ i }}" id="{{ "active-row" if loop.last }}">
+        <div class="row {{ i }}" id="{{ "active-row" if loop.last and 'YOU WON' != error }}">
             {% for a in range(my_pf._field[i]|length) %}
             <div class="cell {{ a }} {{ "correctplaced" if my_pf._response[i][a] == 'black' }} {{ "insecretcode" if my_pf._response[i][a] == 'white' }}">
                 {% if my_pf._field[i][a] != 0 %}
@@ -37,14 +44,6 @@
             {% endfor %}
         </div>
         {% endfor %}
-    </div>
-
-    <div id="form-container" class="col-md-2">
-        <ul>
-            <li><a href="/nextround/">Next round</a></li>
-            <li><a href="/reset/">reset</a></li>
-            <li><a href="/logout/">Logout</a></li>
-        </ul>
     </div>
 </div>
 

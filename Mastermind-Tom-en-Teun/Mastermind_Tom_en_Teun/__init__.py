@@ -61,19 +61,16 @@ class Playfield:
     def next_round(self):
         if (self.checkrow()):
             self.checkcode()
-            self._response.append([0] * my_options.num_column)
-            self._field.append([0] * my_options.num_column)
+            if self.is_won():
+                session['error'] = 'YOU WON'
+            else:
+                self._response.append([0] * my_options.num_column)
+                self._field.append([0] * my_options.num_column)
 
     def is_won(self):
         if len(Counter(self._response[-1])) == 1 and "black" in self._response[-1]:
-            return False
+            return True
         return False
-
-    def reset(self):
-        self._response = []
-        self._response.append([0] * my_options.num_column)
-        self._field = []
-        self._field.append([0] * my_options.num_column)
 
 # OBJECTS
 my_options = Options('Tom', 4, 10)
@@ -120,16 +117,11 @@ def logout():
 @app.route('/home')
 @requires_auth
 def home():  
-    if 'error' not in session:
-        session['error'] = ''
-    if my_playfield.is_won():
-        # WON
-        session['error'] = 'YOU WON!'
     return render_template('index.html',
         year=datetime.now().year,
         my_opt = my_options,
         my_pf = my_playfield,
-        error = session['error'] or '')
+        error = session['error'] or '',)
 
 @app.route('/accountdetails', methods=['GET', 'POST'])
 def accountdetails():
@@ -164,6 +156,7 @@ def nextround():
 def reset():
     global my_playfield 
     my_playfield = Playfield()
+    session['error'] = ''
     return redirect('/home')
 
 # FUNCTIONS
