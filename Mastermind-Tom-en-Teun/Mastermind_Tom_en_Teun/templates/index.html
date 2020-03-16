@@ -6,45 +6,53 @@
 
 {% block content %}
 <div id="error">
-    <p>{{ my_pf.secretcode }}</p>
     <p>{{ error }}</p>
-    <p>{{ my_pf._response }}</p>
-    <p>{{ my_pf._field[-1] }}</p>
 </div>
-<section id="play-grid">
-    {% for i in range(my_pf._field|length) %}
-    <div class="row {{ i }}" id="{{ "active-row" if loop.last }}">
-        {% for a in range(my_pf._field[i]|length) %}
-        <div class="cell {{ a }}">
-            {% if my_pf._field[i][a] != 0 %}
-            <div id="{{ my_pf._field[i][a] }}">
-                <i class="gg-twilio"></i>
+
+<div class="row">
+    <div class="col-md-2">
+        <dl>
+            <dt>Username</dt>
+            <dd>{{ my_opt.name }}</dd>
+            <dt>Number of columns</dt>
+            <dd>{{ my_opt.num_column }}</dd>
+            <dt>Number of colours</dt>
+            <dd>{{ my_opt.num_colour }}</dd>
+            <dt>Allow duplicate colours</dt>
+            <dd>{{ "No" if my_opt.unique else "Yes" }}</dd>
+        </dl>
+    </div>
+
+    <div class="col-md-{{ (my_opt.num_column + 1) // 2 }} tab-in">
+        {% for i in range(my_pf._field|length) %}
+        <div class="row {{ i }}" id="{{ "active-row" if loop.last }}">
+            {% for a in range(my_pf._field[i]|length) %}
+            <div class="cell {{ a }} {{ "correctplaced" if my_pf._response[i][a] == 'black' }} {{ "insecretcode" if my_pf._response[i][a] == 'white' }}">
+                {% if my_pf._field[i][a] != 0 %}
+                <div id="{{ my_pf._field[i][a] }}">
+                    <i class="gg-twilio"></i>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
-    {% endfor %}
-</section>
 
-<div id="colours" class="draggable">
-    <div class="twilio-row">
-        {% for i in range(my_pf.colours|length) %}
-        {% if i != 0 and i % 3 == 0 %}
-    </div><div class="twilio-row">
-        {% endif %}
-        <div draggable="true" id="{{ my_pf.colours[i] }}"><i class="gg-twilio"></i></div>
-        {% endfor %}
+    <div id="form-container" class="col-md-2">
+        <ul>
+            <li><a href="/nextround/">Next round</a></li>
+            <li><a href="/reset/">reset</a></li>
+            <li><a href="/logout/">Logout</a></li>
+        </ul>
     </div>
 </div>
 
-<div id="form-container">
-    <form method="post" action="/nextround/">
-        <input type="submit" value="Next round" />
-    </form>
-    <form method="post" action="/reset/">
-        <input type="submit" value="reset" />
-    </form>
+<div id="colours" class="draggable">
+    {% for i in range(my_pf.colours|length) %}
+    <div draggable="true" id="{{ my_pf.colours[i] }}"><i class="gg-twilio"></i></div>
+    {% endfor %}
 </div>
+
 
 {% endblock %}

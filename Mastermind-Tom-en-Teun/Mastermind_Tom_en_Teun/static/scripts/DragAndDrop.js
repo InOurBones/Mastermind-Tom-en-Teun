@@ -29,22 +29,16 @@ dropzones.addEventListener('drop', e => {
         return;
     }
     if (e.target.classList.contains('gg-twilio')) {
-        console.log('IF');
         cell = e.target.parentElement.parentElement.classList[1];
         e.target.parentNode.parentNode.appendChild(el);
         e.target.parentElement.remove();
     }
     else if (e.target.classList.length == 0) {
-
         cell = e.target.parentElement.classList[1];
         e.target.parentNode.appendChild(el);
         e.target.remove();
     }
     else {
-        console.log('else');
-        console.log(el);
-        console.log(e.target);
-
         cell = e.target.classList[1];
         e.target.appendChild(el);
     }

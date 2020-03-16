@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div id="error">
+    <p>{{ error }}</p>
+</div>
+
+<form method="POST" action="/accountdetails">
+    <div class="form-group">
+        <label for="name">Your username is: </label>
+        <input type="text" class="form-control" name="name" value="{{ my_opt.name }}" />
+    </div>
+    <div class="form-group">
+        <label for="colours_used">Number of colours used (4-10): </label>
+        <input type="number" class="form-control" name="colours_used" value="{{ my_opt.num_colour }}" />
+    </div>
+    <div class="form-group">
+        <label for="columns_used">Number of columns used (4-10): </label>
+        <input type="number" class="form-control" name="columns_used" value="{{ my_opt.num_column }}" />
+    </div>
+    <div class="form-group">
+        <label for="duplicate">Allow duplicate colours: </label>
+        <div>
+            <label class="radio-inline">
+                <input type="radio" name="duplicate" id="duplicate" value="duplicate_yes" {{ "checked" if not my_opt.unique }} /> Yes
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="duplicate" id="duplicate" value="duplicate_no" {{ "checked" if my_opt.unique }} /> No
+            </label>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-default">Save Changes</button>
+</form>
+        {% endblock %}
