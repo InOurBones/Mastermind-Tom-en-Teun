@@ -13,8 +13,7 @@ app.secret_key = b'\xd4\xc6\x14\xd4\xe3\xce\x04\xe5\x15\xa5\xf7Z$\x8e \x1a'
 
 # CLASSES
 class Options:
-    def __init__(self, name, column=4, colour=4, unique=True):
-        self.name = name
+    def __init__(self, column=4, colour=4, unique=True):
         self.num_column = column
         self.num_colour = colour
         self.unique = unique
@@ -29,6 +28,7 @@ class Playfield:
         self._field.append([0] * my_options.num_column)
         self._response = []
         self._response.append([0] * my_options.num_column)
+        self._finished = False
         if my_options.unique:
             self.secretcode = random.sample(self.colours, my_options.num_column)
         else:
@@ -62,7 +62,7 @@ class Playfield:
         if (self.checkrow()):
             self.checkcode()
             if self.is_won():
-                session['error'] = 'YOU WON'
+                self._finished = True
             else:
                 self._response.append([0] * my_options.num_column)
                 self._field.append([0] * my_options.num_column)
@@ -73,7 +73,7 @@ class Playfield:
         return False
 
 # OBJECTS
-my_options = Options('Tom', 4, 10)
+my_options = Options(4, 4)
 my_playfield = Playfield()
 
 # ROUTES
@@ -94,6 +94,7 @@ def login():
         username = request.form['user']
         password = request.form['pass']
         user = next_row(do_query("SELECT * FROM users WHERE name = ?", (username,)))
+        print(user)
         digest = hashlib.sha512(password.encode('utf-8')).hexdigest()
         if user and digest == user['password']:
             del user['password']
@@ -116,11 +117,12 @@ def logout():
 
 @app.route('/home')
 @requires_auth
-def home():  
+def home():
     return render_template('index.html',
         year=datetime.now().year,
         my_opt = my_options,
         my_pf = my_playfield,
+        name = session['user']['name'],
         error = session['error'] or '',)
 
 @app.route('/accountdetails', methods=['GET', 'POST'])
@@ -133,18 +135,22 @@ def accountdetails():
                 return render_template('accountdetails.html',
                     my_opt = my_options,
                     error = 'Je kan niet minder kleuren hebben dan het aantal kolommen zonder dubbele kleuren',)
-        my_options.name = request.form['name']
         my_options.num_colour = int(request.form['colours_used'])
         my_options.num_column = int(request.form['columns_used'])
         my_options.unique = False if request.form['duplicate'] == 'duplicate_yes' else True
         my_playfield = Playfield()
+        return redirect("/home")
     return render_template('accountdetails.html',
+        name = session['user']['name'],
         my_opt = my_options,
         error = '')
 
 @app.route('/stats')
 def stats():
-    return render_template('stats.html')
+    print(next_row(do_query("SELECT COUNT(id) FROM games WHERE user_id = ?", (session['user']['id'],))),)
+    return render_template('stats.html',
+        name = session['user']['name'],
+        games = get_resultset("SELECT * FROM games WHERE user_id = ?", (session['user']['id'],)),)
 
 # REDIRECTS
 @app.route('/nextround/')
@@ -155,6 +161,7 @@ def nextround():
 @app.route('/reset/')
 def reset():
     global my_playfield 
+    save_game()
     my_playfield = Playfield()
     session['error'] = ''
     return redirect('/home')
@@ -184,11 +191,29 @@ def do_query(query, bindings=None):
     else:
         cursor.execute(query)
 
-    while True:
-        row = cursor.fetchone()
-        if not row:
-            return None
-        yield row
+        while True:
+            row = cursor.fetchone()
+            if not row:
+                return None
+            yield row
+
+def get_resultset(query, bindings=None):
+    cursor = get_db().cursor()
+    if bindings:
+        cursor.execute(query, bindings)
+    else:
+        cursor.execute(query)
+
+    return cursor.fetchall()
+
+def insert_data(query, bindings=None):
+    con = get_db()
+    cursor = con.cursor()
+    if bindings:
+        cursor.execute(query, bindings)
+    else:
+        cursor.execute()
+    con.commit()        
 
 def connect_db():
     rv = sqlite3.connect('mastermind_db.db')
@@ -199,6 +224,12 @@ def get_db():
     if 'sqlite_db' not in g:
         g.sqlite_db = connect_db()
     return g.sqlite_db
+
+def save_game():
+    if len(my_playfield._field) > 1:
+        save_query_sql = "INSERT INTO games VALUES (null, null, ?, ?, ?, ?, ?)"
+        insert_data(save_query_sql, (my_playfield._finished, my_options.num_column, my_options.num_colour, len(my_playfield._field), session['user']['id']))
+        print(next_row(do_query("SELECT * FROM games ORDER BY id DESC")))
 
 @app.teardown_appcontext
 def close_db(error):

@@ -27,6 +27,11 @@
     color: red;
 }
 
+#won {
+    text-align: center;
+    color: green;
+}
+
 .row {
     padding-top: 10px;
     overflow: hidden;

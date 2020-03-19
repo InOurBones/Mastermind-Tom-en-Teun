@@ -41,8 +41,10 @@ def sql_table(con):
     create_game_sql = """
     CREATE TABLE games (
         id integer PRIMARY KEY AUTOINCREMENT,
-        date_played datetime NOT NULL,
+        date_played datetime DEFAULT (datetime('now', 'localtime')),
         finished boolean NOT NULL,
+        column_count int NOT NULL,
+        colour_count int NOT NULL,
         turns int NOT NULL,
         user_id integer,
         FOREIGN KEY (user_id) REFERENCES users (id))"""

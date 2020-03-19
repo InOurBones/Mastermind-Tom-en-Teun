@@ -6,15 +6,20 @@
 
 {% block content %}
 <div id="error">
-    <p>{{ my_pf.secretcode }}</p>
     <p>{{ error }}</p>
 </div>
+
+{% if my_pf._finished %}
+<div id="won">
+    <p>YOU WON</p>
+</div>
+{% endif %}
 
 <div class="row">
     <div class="col-md-2">
         <dl>
             <dt>Username</dt>
-            <dd>{{ my_opt.name }}</dd>
+            <dd>{{ name }}</dd>
             <dt>Number of columns</dt>
             <dd>{{ my_opt.num_column }}</dd>
             <dt>Number of colours</dt>
@@ -32,7 +37,7 @@
 
     <div class="col-md-{{ (my_opt.num_column + 1) // 2 }} col-md-offset-2">
         {% for i in range(my_pf._field|length) %}
-        <div class="row {{ i }}" id="{{ "active-row" if loop.last and 'YOU WON' != error }}">
+        <div class="row {{ i }}" id="{{ "active-row" if loop.last and not my_pf._finished }}">
             {% for a in range(my_pf._field[i]|length) %}
             <div class="cell {{ a }} {{ "correctplaced" if my_pf._response[i][a] == 'black' }} {{ "insecretcode" if my_pf._response[i][a] == 'white' }}">
                 {% if my_pf._field[i][a] != 0 %}
@@ -52,6 +57,5 @@
     <div draggable="true" id="{{ my_pf.colours[i] }}"><i class="gg-twilio"></i></div>
     {% endfor %}
 </div>
-
 
 {% endblock %}
